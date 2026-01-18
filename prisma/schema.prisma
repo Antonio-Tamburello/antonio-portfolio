@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String   @id @default(cuid()) @db.Text
+  name          String?  @db.Text
+  email         String   @unique @db.Text
+  emailVerified Boolean  @default(false)
+  image         String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sessions      Session[]
+  accounts      Account[]
+  verifications Verification[]
+
+  entitlement   Entitlement?
+  stripeCustomer StripeCustomer?
+  purchases     Purchase[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid()) @db.Text
+  userId    String   @db.Text
+  token     String   @unique @db.Text
+  expiresAt DateTime
+  ipAddress String?  @db.Text
+  userAgent String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String   @id @default(cuid()) @db.Text
+  userId                String   @db.Text
+  accountId             String   @db.Text
+  providerId            String   @db.Text
+  accessToken           String?  @db.Text
+  refreshToken          String?  @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?  @db.Text
+  idToken               String?  @db.Text
+  password              String?  @db.Text
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@unique([providerId, accountId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid()) @db.Text
+  identifier String   @db.Text
+  value      String   @db.Text
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  userId     String?  @db.Text
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([identifier])
+  @@unique([identifier, value])
+  @@map("verification")
+}
+
+enum PlanTier {
+  FREE
+  STARTER
+  PRO
+  ENTERPRISE
+}
+
+enum BillingMode {
+  payment
+  subscription
+}
+
+model Entitlement {
+  id                   String      @id @default(cuid()) @db.Text
+  userId               String      @unique @db.Text
+  tier                 PlanTier    @default(FREE)
+  billingMode          BillingMode?
+  isActive             Boolean     @default(true)
+  stripeSubscriptionId String?     @db.Text
+  stripeCustomerId     String?     @db.Text
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+
+  user                 User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("entitlement")
+}
+
+model StripeCustomer {
+  id               String   @id @default(cuid()) @db.Text
+  userId           String   @unique @db.Text
+  stripeCustomerId String   @unique @db.Text
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("stripe_customer")
+}
+
+model StripeEvent {
+  id            String   @id @default(cuid()) @db.Text
+  stripeEventId String   @unique @db.Text
+  createdAt     DateTime @default(now())
+
+  @@map("stripe_event")
+}
+
+model Purchase {
+  id                   String      @id @default(cuid()) @db.Text
+  userId               String      @db.Text
+  stripePaymentIntentId String?    @db.Text
+  stripeSubscriptionId String?     @db.Text
+  stripeSessionId      String?     @db.Text
+  tier                 PlanTier
+  billingMode          BillingMode
+  amount               Int         // Amount in cents
+  currency             String      @default("usd")
+  status               PurchaseStatus @default(PENDING)
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+
+  user                 User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("purchase")
+}
+
+enum PurchaseStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+  REFUNDED
+}
