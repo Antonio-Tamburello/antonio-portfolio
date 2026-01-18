@@ -18,7 +18,9 @@
     "db:reset": "npx prisma db execute --file scripts/reset-db.sql",
     "db:reset-full": "prisma migrate reset --force",
     "db:reset-interactive": "./scripts/reset-database.sh",
-    "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe/webhook"
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe/webhook",
+    "postinstall": "prisma generate",
+    "vercel-build": "prisma db push && next build"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
