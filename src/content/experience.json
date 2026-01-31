@@ -1,0 +1,82 @@
+[
+  {
+    "id": "reset-senior-lead-frontend",
+    "company": "Reset",
+    "position": "Senior Lead Front-End Engineer",
+    "location": "Italy (Remote)",
+    "startDate": "2025-03-01",
+    "current": true,
+    "description": "Senior lead role focused on frontend ownership, technical direction, and delivery.",
+    "achievements": [],
+    "technologies": ["Angular", "TypeScript", "RxJS", "NgRx", "Tailwind CSS", "GraphQL", "Git", "Jira"]
+  },
+  {
+    "id": "yanchware-senior-lead-frontend",
+    "company": "Yanchware",
+    "position": "Senior Lead Front-End Engineer",
+    "location": "Italy (Remote)",
+    "startDate": "2024-06-01",
+    "endDate": "2025-03-01",
+    "current": false,
+    "description": "Led frontend delivery and contributed hands-on to product development.",
+    "achievements": [],
+    "technologies": ["Angular", "TypeScript", "RxJS", "NgRx", "Git", "UI/UX collaboration"]
+  },
+  {
+    "id": "kpi6-frontend-engineer",
+    "company": "KPI6",
+    "position": "Front-End Engineer / Senior Front-end Developer",
+    "location": "Italy (Remote)",
+    "startDate": "2022-11-01",
+    "endDate": "2024-06-01",
+    "current": false,
+    "description": "Built and evolved B2B social listening products, from MVP to feature iterations.",
+    "achievements": [
+      "Contributed to an MVP for a new B2B social listening app delivered in ~3 months.",
+      "Resolved bugs and shipped new features across an existing suite of B2B apps.",
+      "Collaborated with UI/UX to improve usability and implementation quality.",
+      "Created reusable components to increase consistency and development speed."
+    ],
+    "technologies": ["React", "TypeScript", "GraphQL", "Tailwind CSS", "Redux", "UI/UX", "Performance"]
+  },
+  {
+    "id": "accenture-team-leader-frontend",
+    "company": "Accenture",
+    "position": "Team Leader / Senior Front-end Developer",
+    "location": "Italy",
+    "startDate": "2021-04-01",
+    "endDate": "2022-11-01",
+    "current": false,
+    "description": "Team leader and developer on B2B/B2C projects; delivered new app flows including consultation and PDF generation.",
+    "achievements": [
+      "Team Lead Developer for CNHi in a team of 4 (development + maintenance across B2B/B2C).",
+      "Built a new project for consultation and PDF generation for desktop and mobile.",
+      "Contributed to marketplace development/maintenance for MiuMiu."
+    ],
+    "technologies": ["Angular", "TypeScript", "RxJS", "SCSS", "Git", "Enterprise delivery"]
+  },
+  {
+    "id": "dst-team-leader-contractor",
+    "company": "DST",
+    "position": "Team Leader / Senior Front-end Developer (Contractor for Accenture)",
+    "location": "Italy",
+    "startDate": "2021-04-01",
+    "endDate": "2022-05-01",
+    "current": false,
+    "description": "Contract role aligned with Accenture engagement (see Accenture experience).",
+    "achievements": [],
+    "technologies": ["Angular", "TypeScript", "RxJS", "Git"]
+  },
+  {
+    "id": "multidata-frontend-developer",
+    "company": "Multidata",
+    "position": "Front-end Developer",
+    "location": "Italy",
+    "startDate": "2020-10-01",
+    "endDate": "2021-04-01",
+    "current": false,
+    "description": "Worked on ERP and accounting software for client companies (textile/clothing sector and commercial activities).",
+    "achievements": [],
+    "technologies": ["JavaScript", "TypeScript", "HTML", "CSS", "SCSS", "UI"]
+  }
+]

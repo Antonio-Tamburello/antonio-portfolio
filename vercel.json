@@ -1,9 +1,0 @@
-{
-  "buildCommand": "pnpm db:generate && pnpm build",
-  "installCommand": "pnpm install",
-  "functions": {
-    "src/app/**/*.ts": {
-      "maxDuration": 30
-    }
-  }
-}

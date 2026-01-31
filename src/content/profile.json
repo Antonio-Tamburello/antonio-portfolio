@@ -1,0 +1,71 @@
+{
+  "name": "Antonio Tamburello",
+  "title": "Senior Lead Frontend Engineer · Technical Lead & Frontend Architect",
+  "bio": "I lead frontend teams and ship full-stack web products—design systems, responsive UI/UX, and clean, maintainable code. Exploring GenAI and applied AI.",
+  "location": "Florence, Italy",
+  "email": "antonio.tamburello.dev@gmail.com",
+  "github": "https://github.com/Antonio-Tamburello",
+  "linkedin": "https://www.linkedin.com/in/antonio-tamburello",
+  "avatar": "/images/profile_image.jpeg",
+  "resume": "/resume.pdf",
+  "skills": [
+    "Angular",
+    "RxJS",
+    "NgRx",
+    "React",
+    "Redux",
+    "Next.js",
+    "TypeScript",
+    "JavaScript",
+    "GraphQL",
+    "Tailwind CSS",
+    "HTML5",
+    "CSS3",
+    "SCSS/Sass",
+    "Git",
+    "Jira",
+    "Figma",
+    "UI/UX",
+    "Responsive Web Design",
+    "Node.js",
+    "PostgreSQL",
+    "MongoDB",
+    "Prisma",
+    "Supabase",
+    "Docker",
+    "GenAI / LLM experimentation",
+    "Applied AI (CS50AI)"
+  ],
+  "highlights": [
+    {
+      "title": "Technical Leadership",
+      "description": "Lead multiple frontend teams and coordinate delivery across projects—building scalable UI systems, mentoring engineers, and keeping teams moving fast.",
+      "icon": "Users"
+    },
+    {
+      "title": "Fast Product Delivery",
+      "description": "Rapid delivery with production-grade quality—e.g., led frontend execution for a B2B social listening MVP in ~3 months.",
+      "icon": "Rocket"
+    },
+    {
+      "title": "UI/UX & Performance Mindset",
+      "description": "Strong attention to design systems, responsiveness, animations, and performance across modern web apps.",
+      "icon": "Sparkles"
+    },
+    {
+      "title": "GenAI Prototyping",
+      "description": "In my spare time, I prototype GenAI-powered tools and workflows—testing ideas quickly and keeping what’s actually useful.",
+      "icon": "Brain"
+    },
+    {
+      "title": "SaaS & MVP Builder",
+      "description": "I regularly ship side projects and SaaS experiments—validating ideas fast with clean foundations and rapid iteration.",
+      "icon": "Wrench"
+    },
+    {
+      "title": "Continuous Learner",
+      "description": "I’m passionate about learning new technologies and improving my skills through courses, reading, and hands-on projects.",
+      "icon": "BookOpen"
+    }
+  ]
+}
