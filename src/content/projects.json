@@ -2,7 +2,7 @@
   {
     "id": "saas-forge-kit",
     "title": "SaaS Forge Kit",
-    "image": "/images/profile_image.jpeg",
+    "image": "/images/saas-forge-kit/saas-forge-kit-dashboard_dark.png",
     "description": "Modern, production-ready Next.js SaaS boilerplate with auth, optional billing, and deployment-ready setup.",
     "longDescription": "A Next.js SaaS blueprint designed to be cloned and extended for SaaS ideas, portfolios, and experiments. Includes PostgreSQL + Prisma, Tailwind + shadcn/ui, Better Auth (email/password + optional Google OAuth), optional Stripe billing, TypeScript + Zod validation, and Docker Compose for local DB.",
     "technologies": [
@@ -15,7 +15,7 @@
       "Better Auth",
       "Zod",
       "Docker Compose",
-      "Stripe (optional)"
+      "Stripe"
     ],
     "githubUrl": "https://github.com/Antonio-Tamburello/saas-forge-kit",
     "demoUrl": "https://saas-forge-kit.vercel.app",

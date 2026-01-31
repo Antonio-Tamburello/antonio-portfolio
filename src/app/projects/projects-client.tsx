@@ -20,12 +20,10 @@ interface ProjectsPageClientProps {
 
 export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
 	const [searchQuery, setSearchQuery] = useState('')
-	const [selectedStatus, setSelectedStatus] = useState<string>('all')
 	const [selectedCategory, setSelectedCategory] = useState<string>('all')
 	const [selectedTech, setSelectedTech] = useState<string>('all')
 
 	// Get unique values for filters
-	const statuses = ['all', ...Array.from(new Set(projects.map(p => p.status)))]
 	const categories = ['all', ...Array.from(new Set(projects.map(p => p.category)))]
 	const technologies = ['all', ...Array.from(new Set(projects.flatMap(p => p.technologies)))]
 
@@ -33,25 +31,21 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
 	const filteredProjects = useMemo(() => {
 		return projects.filter(project => {
 			const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-													project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-													project.technologies.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()))
-      
-			const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus
+				project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				project.technologies.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()))
 			const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory
 			const matchesTech = selectedTech === 'all' || project.technologies.includes(selectedTech)
-      
-			return matchesSearch && matchesStatus && matchesCategory && matchesTech
+			return matchesSearch && matchesCategory && matchesTech
 		})
-	}, [projects, searchQuery, selectedStatus, selectedCategory, selectedTech])
+	}, [projects, searchQuery, selectedCategory, selectedTech])
 
 	const clearFilters = () => {
 		setSearchQuery('')
-		setSelectedStatus('all')
 		setSelectedCategory('all')
 		setSelectedTech('all')
 	}
 
-	const hasActiveFilters = searchQuery || selectedStatus !== 'all' || selectedCategory !== 'all' || selectedTech !== 'all'
+	const hasActiveFilters = searchQuery || selectedCategory !== 'all' || selectedTech !== 'all'
 
 	return (
 		<div className="min-h-screen">
@@ -87,27 +81,12 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
 										<Filter className="h-4 w-4" />
 										Filters
 									</div>
-                  
-									{/* Status Filter */}
-									<div className="space-y-2">
-										<label className="text-sm font-medium text-muted-foreground">Status</label>
-										<div className="flex flex-wrap gap-2">
-											{statuses.map(status => (
-												<Badge
-													key={status}
-													variant={selectedStatus === status ? "default" : "outline"}
-													className="cursor-pointer hover:bg-primary/10 transition-colors capitalize"
-													onClick={() => setSelectedStatus(status)}
-												>
-													{status}
-												</Badge>
-											))}
-										</div>
-									</div>
 
 									{/* Category Filter */}
 									<div className="space-y-2">
-										<label className="text-sm font-medium text-muted-foreground">Category</label>
+										<div className='mb-2'>
+											<label className="text-sm font-medium text-muted-foreground">Category</label>
+										</div>
 										<div className="flex flex-wrap gap-2">
 											{categories.map(category => (
 												<Badge
@@ -124,7 +103,9 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
 
 									{/* Technology Filter */}
 									<div className="space-y-2">
-										<label className="text-sm font-medium text-muted-foreground">Technology</label>
+										<div className='mb-2'>
+											<label className="text-sm font-medium text-muted-foreground">Technology</label>
+										</div>
 										<div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
 											{technologies.slice(0, 20).map(tech => (
 												<Badge
@@ -142,9 +123,9 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
 									{/* Clear Filters */}
 									{hasActiveFilters && (
 										<div className="pt-2">
-											<Button 
-												variant="ghost" 
-												size="sm" 
+											<Button
+												variant="ghost"
+												size="sm"
 												onClick={clearFilters}
 												className="text-muted-foreground hover:text-foreground"
 											>
@@ -182,13 +163,13 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
 				</Container>
 			</div>
 
-				<Footer
-					socialLinks={[
-						profile.github ? { name: 'GitHub', href: profile.github } : null,
-						profile.linkedin ? { name: 'LinkedIn', href: profile.linkedin } : null,
-						profile.email ? { name: 'Email', href: `mailto:${profile.email}` } : null,
-					].filter((item): item is { name: string; href: string } => item !== null)}
-				/>
+			<Footer
+				socialLinks={[
+					profile.github ? { name: 'GitHub', href: profile.github } : null,
+					profile.linkedin ? { name: 'LinkedIn', href: profile.linkedin } : null,
+					profile.email ? { name: 'Email', href: `mailto:${profile.email}` } : null,
+				].filter((item): item is { name: string; href: string } => item !== null)}
+			/>
 		</div>
 	)
 }

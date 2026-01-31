@@ -28,7 +28,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.id}`} className="block group">
       <Card className="overflow-hidden transition-all hover:shadow-md z-10 cursor-pointer">
-        <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-muted">
+          <div className="aspect-video relative overflow-hidden flex items-center justify-center bg-muted h-full">
           {project.image ? (
             <Image
               src={project.image}
@@ -57,7 +57,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
 
-        <CardContent className="p-6">
+          <CardContent className="p-6 flex-1 flex flex-col">
           <div className="space-y-3">
             <div>
               <h3 className="font-semibold text-lg line-clamp-1">
@@ -76,7 +76,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </CardContent>
 
-        <CardFooter className="p-6 pt-0 flex gap-2">
+          <CardFooter className="px-6 pb-6 pt-0 flex flex-wrap gap-2 mt-auto">
           {project.githubUrl ? (
             <span onClick={e => {
               e.preventDefault();

@@ -67,7 +67,10 @@ export const CaseStudyFrontmatterSchema = z.object({
   featured: z.boolean().default(false),
   readingTime: z.string().optional(),
   category: z.string(),
-  slug: z.string()
+  slug: z.string(),
+  projectUrl: z.string().optional(),
+  githubUrl: z.string().optional(),
+  demoUrl: z.string().optional()
 })
 
 // Export types

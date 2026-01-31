@@ -1,5 +1,6 @@
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import AnimatedBackground from '@/components/ui/animated-background'
 import { Container } from '@/components/ui/container'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { ExperienceItem } from '@/components/experience-item'
@@ -15,9 +16,13 @@ export default async function ExperiencePage() {
 
   return (
     <div className="min-h-screen">
-      <Header />
+      <div className="fixed inset-0 -z-10">
+        <AnimatedBackground />
+      </div>
+      <div className="relative z-10">
+        <Header />
 
-      <div className="py-16">
+        <div className="py-16">
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
@@ -53,12 +58,12 @@ export default async function ExperiencePage() {
                   Get in Touch
                 </a>
                 <a
-                  href="/resume.pdf"
+                  href="https://www.linkedin.com/in/antonio-tamburello"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-lg border border-border px-6 py-3 hover:bg-accent transition-colors"
                 >
-                  Download Resume
+                  View LinkedIn
                 </a>
               </div>
             </div>
@@ -66,7 +71,12 @@ export default async function ExperiencePage() {
         </Container>
       </div>
 
-      <Footer />
+        <Footer socialLinks={[
+          { name: 'GitHub', href: 'https://github.com/Antonio-Tamburello' },
+          { name: 'LinkedIn', href: 'https://www.linkedin.com/in/antonio-tamburello' },
+          { name: 'Email', href: 'mailto:antonio.tamburello.dev@gmail.com' }
+        ]} />
+      </div>
     </div>
   )
 }

@@ -3,10 +3,12 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Header } from '@/components/header'
+import AnimatedBackground from '@/components/ui/animated-background'
 import { Footer } from '@/components/footer'
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
 import { Tag } from '@/components/tag'
+import { ProjectLinks } from '@/components/project-links'
 import { getCaseStudyBySlug, getCaseStudies } from '@/content/load'
 import { ArrowLeft, Calendar, Clock } from 'lucide-react'
 
@@ -81,12 +83,17 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <div className="min-h-screen">
+      <div className="fixed inset-0 -z-10">
+        <AnimatedBackground />
+      </div>
 
-      <article>
+      <div className="relative z-10">
+        <Header />
+
+        <article>
         {/* Header */}
-        <section className="py-16 border-b border-border/50">
+        <section className="pt-16 border-b border-border/50">
           <Container>
             <div className="max-w-4xl mx-auto">
               {/* Back button */}
@@ -100,7 +107,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               </div>
 
               {/* Hero image */}
-              <div className="aspect-video relative rounded-xl overflow-hidden mb-8 bg-muted">
+              <div className="flex justify-center items-center aspect-video relative rounded-xl overflow-hidden mb-8 bg-muted">
                 <Image
                   src={caseStudy.image}
                   alt={caseStudy.title}
@@ -144,9 +151,16 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                 {caseStudy.title}
               </h1>
 
-              <p className="text-xl text-muted-foreground leading-relaxed">
+              <p className="text-xl text-muted-foreground leading-relaxed mb-4">
                 {caseStudy.description}
               </p>
+
+              <ProjectLinks
+                githubUrl={caseStudy.githubUrl}
+                demoUrl={caseStudy.demoUrl}
+                projectUrl={caseStudy.projectUrl}
+                className="mb-8"
+              />
             </div>
           </Container>
         </section>
@@ -159,6 +173,14 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             </div>
           </Container>
         </section>
+
+        <ProjectLinks
+          githubUrl={caseStudy.githubUrl}
+          demoUrl={caseStudy.demoUrl}
+          projectUrl={caseStudy.projectUrl}
+          align="center"
+          className="mb-0"
+        />
 
         {/* CTA */}
         <section className="py-16 border-t border-border/50">
@@ -187,7 +209,12 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         </section>
       </article>
 
-      <Footer />
+        <Footer socialLinks={[
+          { name: 'GitHub', href: 'https://github.com/Antonio-Tamburello' },
+          { name: 'LinkedIn', href: 'https://www.linkedin.com/in/antonio-tamburello' },
+          { name: 'Email', href: 'mailto:antonio.tamburello.dev@gmail.com' }
+        ]} />
+      </div>
     </div>
   )
 }

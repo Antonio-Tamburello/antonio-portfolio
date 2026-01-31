@@ -14,21 +14,32 @@ export function ProjectCarousel({ images, alt }: ProjectCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const scrollTo = useCallback((idx: number) => {
-    if (emblaApi) emblaApi.scrollTo(idx);
-  }, [emblaApi]);
+  // Mobile detection (solo lato client)
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
+  // Aggiorna selectedIndex quando cambia la slide attiva
   useEffect(() => {
     if (!emblaApi) return;
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
     emblaApi.on('select', onSelect);
+    // Imposta subito l'indice corretto
     onSelect();
     return () => {
       emblaApi.off('select', onSelect);
     };
   }, [emblaApi]);
 
-  if (!images || images.length === 0) return null;
+  const scrollTo = useCallback((idx: number) => {
+    if (emblaApi) emblaApi.scrollTo(idx);
+  }, [emblaApi]);
+
+  const imageSizes = isMobile ? "100vw" : "(max-width: 768px) 100vw, 800px";
 
   return (
     <div className="my-6">
@@ -44,14 +55,14 @@ export function ProjectCarousel({ images, alt }: ProjectCarouselProps) {
                 alt={alt + ' screenshot ' + (idx + 1)}
                 fill
                 className="object-cover rounded-xl"
-                sizes="(max-width: 768px) 100vw, 800px"
-                priority={idx === 0}
+                sizes={imageSizes}
+                loading={isMobile ? "lazy" : idx === 0 ? "eager" : "lazy"}
+                priority={!isMobile && idx === 0}
               />
             </div>
           ))}
         </div>
       </div>
-      {/* Thumbnails navigation */}
       <div className="flex gap-4 justify-center mt-2">
         {images.map((src, idx) => (
           <button
@@ -67,6 +78,7 @@ export function ProjectCarousel({ images, alt }: ProjectCarouselProps) {
               fill
               className="object-cover"
               sizes="80px"
+              loading="lazy"
             />
           </button>
         ))}

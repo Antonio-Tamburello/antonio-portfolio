@@ -70,7 +70,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </div>
 
                 {/* Hero image */}
-                <div className="aspect-video relative rounded-xl overflow-hidden mb-8 bg-muted">
+                <div className="flex justify-center items-center aspect-video relative rounded-xl overflow-hidden mb-8 bg-muted">
                   {project.image ? (
                     <Image
                       src={project.image}

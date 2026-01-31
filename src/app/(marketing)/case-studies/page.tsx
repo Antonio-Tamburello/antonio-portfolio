@@ -1,6 +1,7 @@
 import { getCaseStudies } from '@/content/load'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import AnimatedBackground from '@/components/ui/animated-background'
 import { Container } from '@/components/container'
 import { SectionHeading } from '@/components/section-heading'
 import { CaseStudyCard } from '@/components/case-study-card'
@@ -17,9 +18,13 @@ export default async function CaseStudiesPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <div className="fixed inset-0 -z-10">
+        <AnimatedBackground />
+      </div>
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <Header />
 
-      <div className="py-16 flex-1">
+        <div className="py-16 flex-1">
         <Container>
           <SectionHeading
             title="Case Studies"
@@ -47,7 +52,8 @@ export default async function CaseStudiesPage() {
         </Container>
       </div>
 
-      <Footer className="mt-auto" />
+        <Footer className="mt-auto" />
+      </div>
     </div>
   )
 }

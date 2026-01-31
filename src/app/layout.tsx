@@ -19,10 +19,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-dvh bg-background text-foreground">
+      <body className="min-h-dvh text-foreground">
         <AnimatedBackground />
         <ThemeProvider>
-          <div className="relative z-10 min-h-screen">
+          <div className="relative z-10 min-h-screen bg-background">
             {children}
           </div>
         </ThemeProvider>
