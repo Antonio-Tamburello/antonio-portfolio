@@ -24,13 +24,14 @@ import {
   Sparkles,
   TrendingUp,
   Users,
-  Wrench
+  Wrench,
+  type LucideIcon
 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 // Dynamic imports for Lucide icons based on profile data
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, LucideIcon> = {
   Users,
   Code2,
   TrendingUp,
@@ -46,7 +47,8 @@ export default async function HomePage() {
   const featuredProjects = await getFeaturedProjects()
   const latestCaseStudy = await getLatestCaseStudy()
   const experiences = await getExperiences()
-  const recentExperiences = experiences.slice(0, 2)
+  // Prendi i primi 2 ruoli totali dalle aziende
+  const recentExperiences = experiences.flatMap(exp => exp.roles.map(role => ({ ...role, company: exp.company, location: exp.location }))).slice(0, 2)
 
   return (
     <div className="min-h-screen">

@@ -1,10 +1,9 @@
-import { Header } from '@/components/header'
+import { CompanyExperienceItem } from '@/components/company-experience-item'
 import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
 import AnimatedBackground from '@/components/ui/animated-background'
 import { Container } from '@/components/ui/container'
 import { SectionHeading } from '@/components/ui/section-heading'
-import { ExperienceItem } from '@/components/experience-item'
-import { getExperiences } from '@/content/load'
 
 export const metadata = {
   title: 'Experience - Antonio Tamburello',
@@ -12,6 +11,7 @@ export const metadata = {
 }
 
 export default async function ExperiencePage() {
+  const { getExperiences } = await import('@/content/load')
   const experiences = await getExperiences()
 
   return (
@@ -33,12 +33,14 @@ export default async function ExperiencePage() {
               />
             </div>
 
-            {/* Experience Timeline */}
+            {/* Experiences grouped by company */}
             <div className="space-y-8">
-              {experiences.map((experience, index: number) => (
-                <ExperienceItem
-                  key={experience.id}
-                  experience={experience}
+              {experiences.map((exp, idx) => (
+                <CompanyExperienceItem
+                  key={exp.company + idx}
+                  company={exp.company}
+                  location={exp.location}
+                  roles={exp.roles}
                 />
               ))}
             </div>

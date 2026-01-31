@@ -1,82 +1,263 @@
 [
   {
-    "id": "reset-senior-lead-frontend",
     "company": "Reset",
-    "position": "Senior Lead Front-End Engineer",
-    "location": "Italy (Remote)",
-    "startDate": "2025-03-01",
-    "current": true,
-    "description": "Senior lead role focused on frontend ownership, technical direction, and delivery.",
-    "achievements": [],
-    "technologies": ["Angular", "TypeScript", "RxJS", "NgRx", "Tailwind CSS", "GraphQL", "Git", "Jira"]
+    "location": "Remote",
+    "roles": [
+      {
+        "id": "reset-lead-frontend-engineer",
+        "position": "Lead Frontend Engineer",
+        "startDate": "2025-06",
+        "current": true,
+        "description": "Leading frontend delivery for Angular-based web applications, owning technical direction and execution.",
+        "achievements": [
+          "Led and coordinated a frontend team of 3 engineers across multiple initiatives.",
+          "Defined frontend architecture, coding standards, and quality guidelines.",
+          "Mentored engineers and supported team growth through reviews and technical guidance.",
+          "Drove delivery of scalable, maintainable Angular features.",
+          "Integrated LLM and generative AI models into production Angular applications."
+        ],
+        "technologies": [
+          "Angular",
+          "JavaScript",
+          "TypeScript",
+          "RxJS",
+          "Signal",
+          "Next.js",
+          "React",
+          "Generative AI",
+          "MongoDB",
+          "Docker",
+          "GitHub"
+        ]
+      },
+      {
+        "id": "reset-senior-frontend-engineer",
+        "position": "Senior Frontend Engineer",
+        "startDate": "2025-03",
+        "endDate": "2025-06-30",
+        "current": false,
+        "description": "Senior contributor to frontend and full-stack projects using Angular, React, and Next.js.",
+        "achievements": [
+          "Improved maintainability and structure of existing frontend codebases.",
+          "Supported cross-stack tasks in collaboration with backend engineers."
+        ],
+        "technologies": [
+          "Angular",
+          "React",
+          "Next.js",
+          "GitHub"
+        ]
+      }
+    ]
   },
   {
-    "id": "yanchware-senior-lead-frontend",
-    "company": "Yanchware",
-    "position": "Senior Lead Front-End Engineer",
-    "location": "Italy (Remote)",
-    "startDate": "2024-06-01",
-    "endDate": "2025-03-01",
-    "current": false,
-    "description": "Led frontend delivery and contributed hands-on to product development.",
-    "achievements": [],
-    "technologies": ["Angular", "TypeScript", "RxJS", "NgRx", "Git", "UI/UX collaboration"]
+    "company": "YanchWare",
+    "location": "Remote (Denmark)",
+    "roles": [
+      {
+        "id": "yanchware-lead-frontend-engineer",
+        "position": "Lead Frontend Engineer",
+        "startDate": "2024-06",
+        "endDate": "2025-03-31",
+        "current": false,
+        "description": "Lead Frontend Engineer responsible for technical direction and delivery in a remote setting. Developed the company marketing website with Gatsby and managed documentation with Docusaurus.",
+        "achievements": [
+          "Built responsive React-based user interfaces aligned with design specifications.",
+          "Led development and maintenance of the company marketing site in Gatsby.",
+          "Curated and improved technical documentation using Docusaurus.",
+          "Collaborated closely with designers and backend engineers on MERN stack features."
+        ],
+        "technologies": [
+          "React",
+          "JavaScript",
+          "TypeScript",
+          "Figma",
+          "MERN Stack",
+          "GraphQL",
+          "Gatsby",
+          "Docusaurus",
+          "REST",
+          "Docker",
+          "GitHub"
+        ]
+      }
+    ]
   },
   {
-    "id": "kpi6-frontend-engineer",
     "company": "KPI6",
-    "position": "Front-End Engineer / Senior Front-end Developer",
-    "location": "Italy (Remote)",
-    "startDate": "2022-11-01",
-    "endDate": "2024-06-01",
-    "current": false,
-    "description": "Built and evolved B2B social listening products, from MVP to feature iterations.",
-    "achievements": [
-      "Contributed to an MVP for a new B2B social listening app delivered in ~3 months.",
-      "Resolved bugs and shipped new features across an existing suite of B2B apps.",
-      "Collaborated with UI/UX to improve usability and implementation quality.",
-      "Created reusable components to increase consistency and development speed."
-    ],
-    "technologies": ["React", "TypeScript", "GraphQL", "Tailwind CSS", "Redux", "UI/UX", "Performance"]
+    "location": "Remote (Italy)",
+    "roles": [
+      {
+        "id": "kpi6-fullstack-developer",
+        "position": "Full-stack Developer",
+        "startDate": "2023-11",
+        "endDate": "2024-06-30",
+        "current": false,
+        "description": "Full-stack developer for a social listening platform, working across backend APIs and frontend features.",
+        "achievements": [
+          "Designed and maintained Node.js APIs consumed by Angular applications.",
+          "Implemented REST endpoints enabling seamless frontend-backend integration.",
+          "Delivered features across the stack in a fast-paced product environment."
+        ],
+        "technologies": [
+          "Node.js",
+          "Express.js",
+          "REST",
+          "Angular",
+          "JavaScript",
+          "TypeScript",
+          "RxJS",
+          "NgRx",
+          "SCSS",
+          "UI/UX",
+          "GitHub"
+        ]
+      },
+      {
+        "id": "kpi6-senior-frontend-developer",
+        "position": "Senior Frontend Engineer",
+        "startDate": "2022-11",
+        "endDate": "2024-06-30",
+        "current": false,
+        "description": "Senior frontend engineer for a B2B social listening suite, focused on feature delivery and UI quality.",
+        "achievements": [
+          "Led frontend execution for an MVP delivered in approximately 3 months.",
+          "Designed reusable UI components and improved overall UX consistency.",
+          "Improved performance and stability while shipping new features."
+        ],
+        "technologies": [
+          "Angular",
+          "JavaScript",
+          "TypeScript",
+          "RxJS",
+          "NgRx",
+          "SCSS",
+          "UI/UX",
+          "GitHub"
+        ]
+      }
+    ]
   },
   {
-    "id": "accenture-team-leader-frontend",
-    "company": "Accenture",
-    "position": "Team Leader / Senior Front-end Developer",
-    "location": "Italy",
-    "startDate": "2021-04-01",
-    "endDate": "2022-11-01",
-    "current": false,
-    "description": "Team leader and developer on B2B/B2C projects; delivered new app flows including consultation and PDF generation.",
-    "achievements": [
-      "Team Lead Developer for CNHi in a team of 4 (development + maintenance across B2B/B2C).",
-      "Built a new project for consultation and PDF generation for desktop and mobile.",
-      "Contributed to marketplace development/maintenance for MiuMiu."
-    ],
-    "technologies": ["Angular", "TypeScript", "RxJS", "SCSS", "Git", "Enterprise delivery"]
+    "company": "Accenture Italia",
+    "location": "Remote (Italy)",
+    "roles": [
+      {
+        "id": "accenture-application-development-analyst",
+        "position": "Application Development Analyst",
+        "startDate": "2022-05",
+        "endDate": "2022-11-30",
+        "current": false,
+        "description": "Team Leader and Senior Frontend Developer on enterprise B2B and B2C projects.",
+        "achievements": [
+          "Led a team of developers on CNHi B2B/B2C applications.",
+          "Owned frontend delivery and coordination across multiple enterprise projects.",
+          "Designed and delivered PDF generation and consultation tools.",
+          "Contributed to the Miu Miu marketplace platform."
+        ],
+        "technologies": [
+          "Angular",
+          "JavaScript",
+          "TypeScript",
+          "RxJS",
+          "HTML",
+          "SCSS",
+          "Mustache5",
+          "Bootstrap",
+          "jQuery",
+          "Git",
+          "GitLab",
+          "InnerSource",
+          "JIRA",
+          "Confluence"
+        ]
+      },
+      {
+        "id": "accenture-senior-frontend-developer",
+        "position": "Senior Frontend Developer",
+        "startDate": "2021-04",
+        "endDate": "2022-05-31",
+        "current": false,
+        "description": "Senior frontend engineer with team leadership responsibilities on enterprise solutions.",
+        "achievements": [
+          "Acted as technical reference and team lead for CNHi frontend initiatives.",
+          "Delivered and maintained B2B and B2C applications (online and offline).",
+          "Supported development and maintenance of enterprise marketplace solutions."
+        ],
+        "technologies": [
+          "Angular",
+          "JavaScript",
+          "TypeScript",
+          "RxJS",
+          "HTML",
+          "SCSS",
+          "Mustache5",
+          "Bootstrap",
+          "jQuery",
+          "Git",
+          "GitLab",
+          "InnerSource",
+          "JIRA",
+          "Confluence"
+        ]
+      }
+    ]
   },
   {
-    "id": "dst-team-leader-contractor",
-    "company": "DST",
-    "position": "Team Leader / Senior Front-end Developer (Contractor for Accenture)",
-    "location": "Italy",
-    "startDate": "2021-04-01",
-    "endDate": "2022-05-01",
-    "current": false,
-    "description": "Contract role aligned with Accenture engagement (see Accenture experience).",
-    "achievements": [],
-    "technologies": ["Angular", "TypeScript", "RxJS", "Git"]
+    "company": "Dst - Design Strategy Technology",
+    "location": "Remote (Italy)",
+    "roles": [
+      {
+        "id": "dst-senior-frontend-developer",
+        "position": "Senior Frontend Developer",
+        "startDate": "2021-04",
+        "endDate": "2022-05-31",
+        "current": false,
+        "description": "Contract role aligned with Accenture engagement (see Accenture experience above ☝🏻)",
+        "achievements": [],
+        "technologies": [
+          "Angular",
+          "JavaScript",
+          "TypeScript",
+          "RxJS",
+          "NgRx",
+          "HTML",
+          "SCSS",
+          "Git",
+          "Enterprise delivery",
+          "Angular Material",
+          "Bootstrap"
+        ]
+      }
+    ]
   },
   {
-    "id": "multidata-frontend-developer",
     "company": "Multidata",
-    "position": "Front-end Developer",
-    "location": "Italy",
-    "startDate": "2020-10-01",
-    "endDate": "2021-04-01",
-    "current": false,
-    "description": "Worked on ERP and accounting software for client companies (textile/clothing sector and commercial activities).",
-    "achievements": [],
-    "technologies": ["JavaScript", "TypeScript", "HTML", "CSS", "SCSS", "UI"]
+    "location": "Remote (Italy)",
+    "roles": [
+      {
+        "id": "multidata-frontend-developer",
+        "position": "Frontend Web Developer",
+        "startDate": "2019-10",
+        "endDate": "2021-04-30",
+        "current": false,
+        "description": "Frontend developer for ERP and accounting software in the retail and textile sectors.",
+        "achievements": [
+          "Developed ERP features for production tracking and inventory management.",
+          "Built accounting modules for invoicing and financial reporting."
+        ],
+        "technologies": [
+          "Angular",
+          "JavaScript",
+          "TypeScript",
+          "HTML",
+          "SCSS",
+          "UI",
+          "Bootstrap",
+          "Material Design",
+          "PrimeNG"
+        ]
+      }
+    ]
   }
 ]

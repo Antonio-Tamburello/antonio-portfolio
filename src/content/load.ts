@@ -1,16 +1,20 @@
 import fs from 'fs/promises'
-import path from 'path'
 import matter from 'gray-matter'
+import path from 'path'
 import {
+  CaseStudyFrontmatterSchema,
+  CompanyExperiencesSchema,
   ProfileSchema,
   ProjectsSchema,
-  ExperiencesSchema,
-  CaseStudyFrontmatterSchema,
+  type CaseStudyFrontmatter,
+  type Experience,
   type Profile,
   type Project,
-  type Experience,
-  type CaseStudyFrontmatter
 } from './schemas'
+import z from 'zod'
+
+export type CompanyExperience = z.infer<typeof CompanyExperiencesSchema>[number]
+export type Role = z.infer<typeof CompanyExperiencesSchema>[number]["roles"][number]
 
 const contentDir = path.join(process.cwd(), 'src/content')
 
@@ -59,14 +63,12 @@ export async function getProjectsByCategory(category: string): Promise<Project[]
 }
 
 // Get all experiences
-export async function getExperiences(): Promise<Experience[]> {
+export async function getExperiences(): Promise<CompanyExperience[]> {
   try {
     const filePath = path.join(contentDir, 'experience.json')
     const fileContent = await fs.readFile(filePath, 'utf8')
     const data = JSON.parse(fileContent)
-    const experiences = ExperiencesSchema.parse(data)
-    // Sort by start date (most recent first)
-    return experiences.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
+    return CompanyExperiencesSchema.parse(data)
   } catch (error) {
     console.error('Error loading experience:', error)
     throw new Error('Failed to load experience data')
@@ -74,9 +76,15 @@ export async function getExperiences(): Promise<Experience[]> {
 }
 
 // Get current experience
-export async function getCurrentExperience(): Promise<Experience | null> {
+export async function getCurrentExperience(): Promise<{ company: string; role: Role } | null> {
   const experiences = await getExperiences()
-  return experiences.find(exp => exp.current) || null
+  for (const exp of experiences) {
+    const currentRole = exp.roles.find(role => role.current)
+    if (currentRole) {
+      return { company: exp.company, role: currentRole }
+    }
+  }
+  return null
 }
 
 // Get case studies
@@ -85,25 +93,25 @@ export async function getCaseStudies(): Promise<Array<CaseStudyFrontmatter & { c
     const caseStudiesDir = path.join(contentDir, 'case-studies')
     const files = await fs.readdir(caseStudiesDir)
     const mdxFiles = files.filter(file => file.endsWith('.mdx'))
-    
+
     const caseStudies = await Promise.all(
       mdxFiles.map(async (file) => {
         const filePath = path.join(caseStudiesDir, file)
         const fileContent = await fs.readFile(filePath, 'utf8')
         const { data, content } = matter(fileContent)
-        
+
         const frontmatter = CaseStudyFrontmatterSchema.parse({
           ...data,
           slug: data.slug || path.basename(file, '.mdx')
         })
-        
+
         return {
           ...frontmatter,
           content
         }
       })
     )
-    
+
     // Sort by published date (most recent first)
     return caseStudies.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
   } catch (error) {

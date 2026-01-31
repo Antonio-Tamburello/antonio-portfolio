@@ -11,6 +11,7 @@ import { Tag } from '@/components/tag'
 import { ProjectLinks } from '@/components/project-links'
 import { getCaseStudyBySlug, getCaseStudies } from '@/content/load'
 import { ArrowLeft, Calendar, Clock } from 'lucide-react'
+import type { ReactNode, ComponentPropsWithoutRef } from 'react'
 
 interface CaseStudyPageProps {
   params: { slug: string }
@@ -24,7 +25,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(props: CaseStudyPageProps) {
-  const params = await (props.params as any)
+  const params: CaseStudyPageProps["params"] = props.params
   const caseStudy = await getCaseStudyBySlug(params.slug)
 
   if (!caseStudy) {
@@ -47,24 +48,24 @@ export async function generateMetadata(props: CaseStudyPageProps) {
 }
 
 const mdxComponents = {
-  h1: (props: any) => <h1 className="text-4xl font-bold tracking-tight mb-8" {...props} />,
-  h2: (props: any) => <h2 className="text-3xl font-bold tracking-tight mt-12 mb-6" {...props} />,
-  h3: (props: any) => <h3 className="text-2xl font-bold tracking-tight mt-8 mb-4" {...props} />,
-  p: (props: any) => <p className="text-lg leading-relaxed mb-6 text-muted-foreground" {...props} />,
-  ul: (props: any) => <ul className="list-disc list-inside space-y-2 mb-6 text-muted-foreground" {...props} />,
-  ol: (props: any) => <ol className="list-decimal list-inside space-y-2 mb-6 text-muted-foreground" {...props} />,
-  li: (props: any) => <li className="text-lg leading-relaxed" {...props} />,
-  blockquote: (props: any) => (
+  h1: (props: ComponentPropsWithoutRef<'h1'>) => <h1 className="text-4xl font-bold tracking-tight mb-8" {...props} />,
+  h2: (props: ComponentPropsWithoutRef<'h2'>) => <h2 className="text-3xl font-bold tracking-tight mt-12 mb-6" {...props} />,
+  h3: (props: ComponentPropsWithoutRef<'h3'>) => <h3 className="text-2xl font-bold tracking-tight mt-8 mb-4" {...props} />,
+  p: (props: ComponentPropsWithoutRef<'p'>) => <p className="text-lg leading-relaxed mb-6 text-muted-foreground" {...props} />,
+  ul: (props: ComponentPropsWithoutRef<'ul'>) => <ul className="list-disc list-inside space-y-2 mb-6 text-muted-foreground" {...props} />,
+  ol: (props: ComponentPropsWithoutRef<'ol'>) => <ol className="list-decimal list-inside space-y-2 mb-6 text-muted-foreground" {...props} />,
+  li: (props: ComponentPropsWithoutRef<'li'>) => <li className="text-lg leading-relaxed" {...props} />,
+  blockquote: (props: ComponentPropsWithoutRef<'blockquote'>) => (
     <blockquote className="border-l-4 border-primary pl-6 my-6 italic text-lg" {...props} />
   ),
-  code: (props: any) => (
+  code: (props: ComponentPropsWithoutRef<'code'>) => (
     <code className="bg-muted px-2 py-1 rounded text-sm font-mono" {...props} />
   ),
-  pre: (props: any) => (
+  pre: (props: ComponentPropsWithoutRef<'pre'>) => (
     <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-6 text-sm font-mono" {...props} />
   ),
-  hr: (props: any) => <hr className="my-12 border-border" {...props} />,
-  a: (props: any) => (
+  hr: (props: ComponentPropsWithoutRef<'hr'>) => <hr className="my-12 border-border" {...props} />,
+  a: (props: ComponentPropsWithoutRef<'a'>) => (
     <a
       className="text-primary hover:text-primary/80 underline underline-offset-4"
       target="_blank"
@@ -75,7 +76,7 @@ const mdxComponents = {
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
-  const { slug } = await params
+  const { slug } = params
   const caseStudy = await getCaseStudyBySlug(slug)
 
   if (!caseStudy) {

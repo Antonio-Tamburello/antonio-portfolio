@@ -1,3 +1,27 @@
+// Company Experience Schema (annidato)
+export const RoleSchema = z.object({
+  id: z.string(),
+  position: z.string(),
+  startDate: z.string(),
+  endDate: z.string().optional(),
+  current: z.boolean().default(false),
+  description: z.string().optional(),
+  achievements: z.array(z.string()),
+  technologies: z.array(z.string()),
+  companyLogo: z.string().url().optional(),
+  companyUrl: z.string().url().optional(),
+  location: z.string().optional()
+});
+
+export const CompanyExperienceSchema = z.object({
+  company: z.string(),
+  location: z.string().optional(),
+  companyLogo: z.string().url().optional(),
+  companyUrl: z.string().url().optional(),
+  roles: z.array(RoleSchema)
+});
+
+export const CompanyExperiencesSchema = z.array(CompanyExperienceSchema);
 import { z } from 'zod'
 
 // Profile Schema
