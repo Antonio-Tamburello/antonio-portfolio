@@ -52,7 +52,11 @@ export default async function CaseStudiesPage() {
         </Container>
       </div>
 
-        <Footer className="mt-auto" />
+        <Footer socialLinks={[
+          { name: 'GitHub', href: 'https://github.com/Antonio-Tamburello' },
+          { name: 'LinkedIn', href: 'https://www.linkedin.com/in/antonio-tamburello' },
+          { name: 'Email', href: 'mailto:antonio.tamburello.dev@gmail.com' }
+        ]} />
       </div>
     </div>
   )
