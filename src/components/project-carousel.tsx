@@ -50,15 +50,27 @@ export function ProjectCarousel({ images, alt }: ProjectCarouselProps) {
               className="embla__slide min-w-0 flex-[0_0_100%] relative aspect-video mx-2"
               key={src}
             >
-              <Image
-                src={src}
-                alt={alt + ' screenshot ' + (idx + 1)}
-                fill
-                className="object-cover rounded-xl"
-                sizes={imageSizes}
-                loading={isMobile ? "lazy" : idx === 0 ? "eager" : "lazy"}
-                priority={!isMobile && idx === 0}
-              />
+              {src.includes('mobile') ? (
+                <Image
+                  src={src}
+                  alt={alt + ' screenshot ' + (idx + 1)}
+                  fill
+                  className="object-contain rounded-xl max-w-xs max-h-full mx-auto"
+                  sizes={imageSizes}
+                  loading={isMobile ? "lazy" : idx === 0 ? "eager" : "lazy"}
+                  priority={!isMobile && idx === 0}
+                />
+              ) : (
+                <Image
+                  src={src}
+                  alt={alt + ' screenshot ' + (idx + 1)}
+                  fill
+                  className="object-cover rounded-xl"
+                  sizes={imageSizes}
+                  loading={isMobile ? "lazy" : idx === 0 ? "eager" : "lazy"}
+                  priority={!isMobile && idx === 0}
+                />
+              )}
             </div>
           ))}
         </div>

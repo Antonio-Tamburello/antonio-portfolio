@@ -41,17 +41,36 @@
   {
     "id": "cenemancauno",
     "title": "Ce ne manca uno",
+    "image": "/images/ce-ne-manca-uno/ce-ne-manca-uno_landing.png",
     "description": "Location-based sports meetups: create games, find players nearby, and fill spots fast.",
     "longDescription": "A responsive, installable PWA born from a real need: helping people find players nearby for sports like 5-a-side football. Users can post events with missing players, location, date/time, skill level, and minimum age. The app supports install on mobile, push notifications via service worker (e.g., when someone joins your event), and private event comments visible only to participants, including reactions.",
     "technologies": [
+      "Next.js",
       "PWA",
       "Service Worker",
       "Push Notifications",
-      "Responsive UI",
-      "Real-time comments"
+      "Real-time comments",
+      "TypeScript",
+      "MongoDB",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Zod",
+      "Docker Compose"
     ],
     "githubUrl": null,
     "demoUrl": "https://cenemancauno.vercel.app/",
+    "screenshots": [
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_landing.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_how-it-works.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_who.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_login.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_notification.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_event.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_event-comments.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_mobile-pwa.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_mobile-pwa-2.png",
+      "/images/ce-ne-manca-uno/ce-ne-manca-uno_mobile-pwa-notification.png"
+    ],
     "status": "active",
     "isFeatured": true,
     "category": "Product",
