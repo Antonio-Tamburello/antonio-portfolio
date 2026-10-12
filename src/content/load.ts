@@ -1,139 +1,144 @@
-import fs from 'fs/promises'
-import matter from 'gray-matter'
-import path from 'path'
+import fs from 'fs/promises';
+import matter from 'gray-matter';
+import path from 'path';
+import type { z } from 'zod';
 import {
   CaseStudyFrontmatterSchema,
   CompanyExperiencesSchema,
   ProfileSchema,
   ProjectsSchema,
   type CaseStudyFrontmatter,
-  type Experience,
+  type CompanyExperience,
   type Profile,
   type Project,
-} from './schemas'
-import z from 'zod'
+  type Role,
+} from './schemas';
 
-export type CompanyExperience = z.infer<typeof CompanyExperiencesSchema>[number]
-export type Role = z.infer<typeof CompanyExperiencesSchema>[number]["roles"][number]
+export type { CompanyExperience, Role };
 
-const contentDir = path.join(process.cwd(), 'src/content')
+const contentDir = path.join(process.cwd(), 'src/content');
 
-// Get profile data
-export async function getProfile(): Promise<Profile> {
-  try {
-    const filePath = path.join(contentDir, 'profile.json')
-    const fileContent = await fs.readFile(filePath, 'utf8')
-    const data = JSON.parse(fileContent)
-    return ProfileSchema.parse(data)
-  } catch (error) {
-    console.error('Error loading profile:', error)
-    throw new Error('Failed to load profile data')
+/** Reads a JSON file from src/content and validates it against its schema. */
+async function readJson<T extends z.ZodTypeAny>(file: string, schema: T): Promise<z.infer<T>> {
+  const raw = await fs.readFile(path.join(contentDir, file), 'utf8');
+  const result = schema.safeParse(JSON.parse(raw));
+  if (!result.success) {
+    throw new Error(`Invalid content in src/content/${file}:\n${result.error.message}`);
   }
+  return result.data;
 }
 
-// Get all projects
-export async function getProjects(): Promise<Project[]> {
-  try {
-    const filePath = path.join(contentDir, 'projects.json')
-    const fileContent = await fs.readFile(filePath, 'utf8')
-    const data = JSON.parse(fileContent)
-    return ProjectsSchema.parse(data)
-  } catch (error) {
-    console.error('Error loading projects:', error)
-    throw new Error('Failed to load projects data')
-  }
+// ---------- Profile ----------
+
+export function getProfile(): Promise<Profile> {
+  return readJson('profile.json', ProfileSchema);
 }
 
-// Get featured projects only
+// ---------- Projects ----------
+
+export function getProjects(): Promise<Project[]> {
+  return readJson('projects.json', ProjectsSchema);
+}
+
 export async function getFeaturedProjects(): Promise<Project[]> {
-  const projects = await getProjects()
-  return projects.filter(project => project.isFeatured)
+  return (await getProjects()).filter((project) => project.isFeatured);
 }
 
-// Get project by ID
 export async function getProjectById(id: string): Promise<Project | null> {
-  const projects = await getProjects()
-  return projects.find(project => project.id === id) || null
+  return (await getProjects()).find((project) => project.id === id) ?? null;
 }
 
-// Get projects by category
-export async function getProjectsByCategory(category: string): Promise<Project[]> {
-  const projects = await getProjects()
-  return projects.filter(project => project.category === category)
+// ---------- Experience ----------
+
+export function getExperiences(): Promise<CompanyExperience[]> {
+  return readJson('experience.json', CompanyExperiencesSchema);
 }
 
-// Get all experiences
-export async function getExperiences(): Promise<CompanyExperience[]> {
-  try {
-    const filePath = path.join(contentDir, 'experience.json')
-    const fileContent = await fs.readFile(filePath, 'utf8')
-    const data = JSON.parse(fileContent)
-    return CompanyExperiencesSchema.parse(data)
-  } catch (error) {
-    console.error('Error loading experience:', error)
-    throw new Error('Failed to load experience data')
-  }
-}
-
-// Get current experience
 export async function getCurrentExperience(): Promise<{ company: string; role: Role } | null> {
-  const experiences = await getExperiences()
-  for (const exp of experiences) {
-    const currentRole = exp.roles.find(role => role.current)
-    if (currentRole) {
-      return { company: exp.company, role: currentRole }
+  for (const exp of await getExperiences()) {
+    const role = exp.roles.find((r) => r.current);
+    if (role) return { company: exp.company, role };
+  }
+  return null;
+}
+
+export type TimelineEntry = {
+  key: string;
+  years: string;
+  title: string;
+  company: string;
+};
+
+const year = (date: string) => date.slice(0, 4);
+
+/**
+ * Short timeline for the home page: one line per role, or one line per company
+ * when the company has a `homeTitle`.
+ */
+export async function getHomeTimeline(): Promise<TimelineEntry[]> {
+  const experiences = await getExperiences();
+  return experiences.flatMap((exp) => {
+    if (exp.homeTitle) {
+      const starts = exp.roles.map((r) => r.startDate).sort();
+      const current = exp.roles.some((r) => r.current);
+      const ends = exp.roles.map((r) => r.endDate ?? '').sort();
+      const end = current ? 'now' : year(ends[ends.length - 1]);
+      return [
+        {
+          key: exp.company,
+          years: `${year(starts[0])} — ${end}`,
+          title: exp.homeTitle,
+          company: exp.company,
+        },
+      ];
     }
-  }
-  return null
+    return exp.roles.map((role) => ({
+      key: role.id,
+      years: `${year(role.startDate)} — ${role.current || !role.endDate ? 'now' : year(role.endDate)}`,
+      title: role.position,
+      company: exp.company,
+    }));
+  });
 }
 
-// Get case studies
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** "2025-03" → "Mar 2025" */
+export function formatMonth(date: string): string {
+  const [y, m] = date.split('-');
+  return m ? `${MONTHS[Number(m) - 1]} ${y}` : y;
+}
+
+/** "Mar 2025 — Jun 2026" or "Jun 2026 — now" */
+export function formatPeriod(role: Pick<Role, 'startDate' | 'endDate' | 'current'>): string {
+  const end = role.current || !role.endDate ? 'now' : formatMonth(role.endDate);
+  return `${formatMonth(role.startDate)} — ${end}`;
+}
+
+// ---------- Case studies (kept for later; not linked from the site right now) ----------
+
 export async function getCaseStudies(): Promise<Array<CaseStudyFrontmatter & { content: string }>> {
-  try {
-    const caseStudiesDir = path.join(contentDir, 'case-studies')
-    const files = await fs.readdir(caseStudiesDir)
-    const mdxFiles = files.filter(file => file.endsWith('.mdx'))
-
-    const caseStudies = await Promise.all(
-      mdxFiles.map(async (file) => {
-        const filePath = path.join(caseStudiesDir, file)
-        const fileContent = await fs.readFile(filePath, 'utf8')
-        const { data, content } = matter(fileContent)
-
-        const frontmatter = CaseStudyFrontmatterSchema.parse({
-          ...data,
-          slug: data.slug || path.basename(file, '.mdx')
-        })
-
-        return {
-          ...frontmatter,
-          content
-        }
-      })
-    )
-
-    // Sort by published date (most recent first)
-    return caseStudies.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-  } catch (error) {
-    console.error('Error loading case studies:', error)
-    throw new Error('Failed to load case studies')
-  }
+  const dir = path.join(contentDir, 'case-studies');
+  const files = (await fs.readdir(dir)).filter((file) => file.endsWith('.mdx'));
+  const studies = await Promise.all(
+    files.map(async (file) => {
+      const { data, content } = matter(await fs.readFile(path.join(dir, file), 'utf8'));
+      const frontmatter = CaseStudyFrontmatterSchema.parse({
+        ...data,
+        slug: data.slug || path.basename(file, '.mdx'),
+      });
+      return { ...frontmatter, content };
+    }),
+  );
+  return studies.sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
 }
 
-// Get case study by slug
-export async function getCaseStudyBySlug(slug: string): Promise<(CaseStudyFrontmatter & { content: string }) | null> {
-  const caseStudies = await getCaseStudies()
-  return caseStudies.find(study => study.slug === slug) || null
+export async function getCaseStudyBySlug(slug: string) {
+  return (await getCaseStudies()).find((study) => study.slug === slug) ?? null;
 }
 
-// Get featured case studies
-export async function getFeaturedCaseStudies(): Promise<Array<CaseStudyFrontmatter & { content: string }>> {
-  const caseStudies = await getCaseStudies()
-  return caseStudies.filter(study => study.featured)
-}
-
-// Get latest case study
-export async function getLatestCaseStudy(): Promise<(CaseStudyFrontmatter & { content: string }) | null> {
-  const caseStudies = await getCaseStudies()
-  return caseStudies[0] || null
+export async function getLatestCaseStudy() {
+  return (await getCaseStudies())[0] ?? null;
 }

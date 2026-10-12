@@ -1,70 +1,101 @@
 {
   "name": "Antonio Tamburello",
-  "title": "Senior Lead Frontend Engineer · Technical Lead & Frontend Architect",
-  "bio": "I lead frontend teams and ship full-stack web products—design systems, responsive UI/UX, and clean, maintainable code. Exploring GenAI and applied AI.",
+  "headline": "Applied AI & LLM Integrations",
+  "title": "Technical BA & QA Lead @ Reset · ex Lead Frontend Engineer",
+  "tagline": {
+    "before": "I turn customer problems into AI that works in ",
+    "highlight": "production",
+    "after": "."
+  },
   "location": "Florence, Italy",
+  "locationNote": "remote-first",
   "email": "antonio.tamburello.dev@gmail.com",
   "github": "https://github.com/Antonio-Tamburello",
   "linkedin": "https://www.linkedin.com/in/antonio-tamburello",
   "avatar": "/images/profile_image.jpeg",
-  "skills": [
-    "Angular",
-    "RxJS",
-    "NgRx",
-    "React",
-    "Redux",
-    "Next.js",
-    "TypeScript",
-    "JavaScript",
-    "GraphQL",
-    "Tailwind CSS",
-    "HTML5",
-    "CSS3",
-    "SCSS/Sass",
-    "Git",
-    "Jira",
-    "Figma",
-    "UI/UX",
-    "Responsive Web Design",
-    "Node.js",
-    "PostgreSQL",
-    "MongoDB",
-    "Prisma",
-    "Supabase",
-    "Docker",
-    "GenAI / LLM experimentation",
-    "Applied AI (CS50AI)"
-  ],
-  "highlights": [
+  "avatarPosition": "63% 30%",
+  "cards": [
     {
-      "title": "Technical Leadership",
-      "description": "Lead multiple frontend teams and coordinate delivery across projects—building scalable UI systems, mentoring engineers, and keeping teams moving fast.",
-      "icon": "Users"
+      "label": "Now",
+      "title": "Technical BA & QA Lead @ Reset",
+      "text": "The bridge between the business and an 11-engineer team across 7–8 products. Still writing production code."
     },
     {
-      "title": "Fast Product Delivery",
-      "description": "Rapid delivery with production-grade quality—e.g., led frontend execution for a B2B social listening MVP in ~3 months.",
-      "icon": "Rocket"
-    },
-    {
-      "title": "UI/UX & Performance Mindset",
-      "description": "Strong attention to design systems, responsiveness, animations, and performance across modern web apps.",
-      "icon": "Sparkles"
-    },
-    {
-      "title": "GenAI Prototyping",
-      "description": "In my spare time, I prototype GenAI-powered tools and workflows—testing ideas quickly and keeping what’s actually useful.",
-      "icon": "Brain"
-    },
-    {
-      "title": "SaaS & MVP Builder",
-      "description": "I regularly ship side projects and SaaS experiments—validating ideas fast with clean foundations and rapid iteration.",
-      "icon": "Wrench"
-    },
-    {
-      "title": "Continuous Learner",
-      "description": "I’m passionate about learning new technologies and improving my skills through courses, reading, and hands-on projects.",
-      "icon": "BookOpen"
+      "label": "Before",
+      "title": "Lead Frontend Engineer",
+      "text": "Six years building products in startups, from an MVP in 3 months to leading remote frontend teams."
     }
-  ]
+  ],
+  "highlightCard": {
+    "label": "AI in production",
+    "title": "Two AI systems used every day ↓",
+    "href": "#work"
+  },
+  "aiWork": [
+    {
+      "title": "Bill data extraction with LLMs",
+      "description": "Structured data pulled from Italian electricity and gas bills by an LLM, available to every Reset user.",
+      "tags": ["LLM", "Structured output", "Angular"],
+      "icon": "FileText",
+      "context": "@Reset · live for all users"
+    },
+    {
+      "title": "RAG assistant, end to end",
+      "description": "Built the knowledge base and wired the frontend and backend of a third-party RAG assistant, available to customers in their private area.",
+      "tags": ["RAG", "Knowledge base", "TypeScript"],
+      "icon": "ScanSearch",
+      "context": "@Reset · live in the customer area"
+    }
+  ],
+  "stack": [
+    "TypeScript",
+    "Python",
+    "Claude API",
+    "OpenAI API",
+    "RAG",
+    "Angular",
+    "React / Next.js",
+    "PostgreSQL",
+    "Cypress"
+  ],
+  "certifications": [
+    {
+      "issuer": "Anthropic",
+      "name": "Claude 101"
+    },
+    {
+      "issuer": "Anthropic",
+      "name": "Claude Code 101"
+    },
+    {
+      "issuer": "Anthropic",
+      "name": "Claude Code in Action"
+    },
+    {
+      "issuer": "Anthropic",
+      "name": "Claude Platform 101"
+    }
+  ],
+  "closing": "AI is easy to demo and hard to ship. I work on the hard part.",
+  "quote": "Born too early to explore space, born too late to sail the seas. So I ship AI, one real problem at a time.",
+  "pages": {
+    "experience": {
+      "eyebrow": "Experience · 2019 — now",
+      "title": {
+        "before": "From frontend to ",
+        "highlight": "AI in production",
+        "after": "."
+      },
+      "intro": "Seven years building products, mostly in startups: from shipping UI to leading teams, to bridging business and engineering on AI projects."
+    },
+    "projects": {
+      "eyebrow": "Projects",
+      "title": {
+        "before": "Things I build ",
+        "highlight": "outside work",
+        "after": "."
+      },
+      "intro": "Open source, side products and experiments. Source on GitHub where it can be public."
+    }
+  }
 }

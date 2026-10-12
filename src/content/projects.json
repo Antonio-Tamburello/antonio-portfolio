@@ -1,55 +1,27 @@
 [
   {
-    "id": "saas-forge-kit",
-    "title": "SaaS Forge Kit",
-    "image": "/images/saas-forge-kit/saas-forge-kit-dashboard_dark.png",
-    "description": "Modern, production-ready Next.js SaaS boilerplate with auth, optional billing, and deployment-ready setup.",
-    "longDescription": "A Next.js SaaS blueprint designed to be cloned and extended for SaaS ideas, portfolios, and experiments. Includes PostgreSQL + Prisma, Tailwind + shadcn/ui, Better Auth (email/password + optional Google OAuth), optional Stripe billing, TypeScript + Zod validation, and Docker Compose for local DB.",
-    "technologies": [
-      "Next.js",
-      "TypeScript",
-      "PostgreSQL",
-      "Prisma",
-      "Tailwind CSS",
-      "shadcn/ui",
-      "Better Auth",
-      "Zod",
-      "Docker Compose",
-      "Stripe"
-    ],
-    "githubUrl": "https://github.com/Antonio-Tamburello/saas-forge-kit",
-    "demoUrl": "https://saas-forge-kit.vercel.app",
-    "screenshots": [
-      "/images/saas-forge-kit/saas-forge-kit-dashboard_dark.png",
-      "/images/saas-forge-kit/saas-forge-kit-dashboard_light.png",
-      "/images/saas-forge-kit/saas-forge-kit-login_dark.png",
-      "/images/saas-forge-kit/saas-forge-kit-price-payment_dark.png",
-      "/images/saas-forge-kit/saas-forge-kit-price-subscription_dark.png",
-      "/images/saas-forge-kit/saas-forge-kit-logged-billing_dark.png",
-      "/images/saas-forge-kit/saas-forge-kit-logged-dashboard_dark.png"
-    ],
-    "status": "active",
+    "id": "rag-forge",
+    "title": "rag-forge",
+    "description": "Measure and improve RAG on real documents.",
+    "longDescription": "Evaluation first, then the fixes that move the numbers. Open source soon.",
+    "technologies": ["RAG", "Evals", "Open source"],
+    "githubUrl": null,
+    "status": "wip",
     "isFeatured": true,
-    "category": "Open Source",
-    "tags": [
-      "SaaS",
-      "Starter Kit",
-      "Blueprint",
-      "Full Stack"
-    ]
+    "category": "AI",
+    "label": "Coming soon · open source"
   },
   {
     "id": "cenemancauno",
     "title": "Ce ne manca uno",
     "image": "/images/ce-ne-manca-uno/ce-ne-manca-uno_landing.png",
-    "description": "Location-based sports meetups: create games, find players nearby, and fill spots fast.",
+    "description": "Find players nearby, with push notifications.",
     "longDescription": "A responsive, installable PWA born from a real need: helping people find players nearby for sports like 5-a-side football. Users can post events with missing players, location, date/time, skill level, and minimum age. The app supports install on mobile, push notifications via service worker (e.g., when someone joins your event), and private event comments visible only to participants, including reactions.",
     "technologies": [
       "Next.js",
       "PWA",
       "Service Worker",
       "Push Notifications",
-      "Real-time comments",
       "TypeScript",
       "MongoDB",
       "Tailwind CSS",
@@ -74,81 +46,53 @@
     "status": "active",
     "isFeatured": true,
     "category": "Product",
-    "tags": [
-      "PWA",
-      "Mobile",
-      "Geo",
-      "Notifications",
-      "Community"
-    ]
+    "label": "Live · PWA"
   },
   {
     "id": "degrees-bfs-optimization",
-    "title": "Six Degrees of Separation: Optimizing BFS (CS50AI)",
-    "description": "Applied AI engineering project: BFS optimization for the CS50AI “Degrees” problem with benchmarks and notebook.",
+    "title": "Six degrees, faster BFS",
+    "description": "A classic search problem, optimized and benchmarked.",
     "longDescription": "Based on Harvard CS50 Introduction to AI with Python. Implements and benchmarks an optimized BFS strategy for the “Six Degrees of Separation” problem, preserving correctness and shortest-path guarantees. Includes code, datasets, and a Jupyter notebook with analysis.",
-    "technologies": [
-      "Python",
-      "Jupyter Notebook",
-      "Algorithms",
-      "BFS",
-      "Benchmarking"
-    ],
+    "technologies": ["Python", "Jupyter Notebook", "Algorithms", "BFS", "Benchmarking"],
     "githubUrl": "https://github.com/Antonio-Tamburello/degrees-bfs-optimization",
     "demoUrl": "https://www.kaggle.com/code/antoniotamburello/six-degrees-of-separation-optimizing-bfs-cs50ai",
     "status": "active",
     "isFeatured": true,
     "category": "AI / Algorithms",
-    "tags": [
-      "CS50AI",
-      "Optimization",
-      "Python",
-      "AI Engineering"
-    ]
+    "label": "Python · CS50AI"
   },
   {
-    "id": "login-app-cert",
-    "title": "Check Certification",
-    "description": "Frontend project using Atomic Design, Tailwind, and shadcn/ui; includes an email reminder flow via Supabase cron + Resend.",
-    "longDescription": "A TypeScript frontend structured with Atomic Design for maintainability. Tailwind for responsive styling and shadcn/ui for UI components. Includes notes on automated email reminders (Supabase scheduled job + Resend).",
+    "id": "saas-forge-kit",
+    "title": "SaaS Forge Kit",
+    "image": "/images/saas-forge-kit/saas-forge-kit-dashboard_dark.png",
+    "description": "Next.js SaaS starter with auth, optional billing and Postgres.",
+    "longDescription": "A Next.js SaaS blueprint designed to be cloned and extended for SaaS ideas, portfolios, and experiments. Includes PostgreSQL + Prisma, Tailwind + shadcn/ui, Better Auth (email/password + optional Google OAuth), optional Stripe billing, TypeScript + Zod validation, and Docker Compose for local DB.",
     "technologies": [
+      "Next.js",
       "TypeScript",
+      "PostgreSQL",
+      "Prisma",
       "Tailwind CSS",
       "shadcn/ui",
-      "Atomic Design",
-      "Supabase",
-      "Resend"
+      "Better Auth",
+      "Zod",
+      "Docker Compose",
+      "Stripe"
     ],
-    "githubUrl": "https://github.com/Antonio-Tamburello/login-app-cert",
-    "status": "active",
-    "isFeatured": false,
-    "category": "Frontend",
-    "tags": [
-      "Architecture",
-      "Design System",
-      "Email Automation"
-    ]
-  },
-  {
-    "id": "yanch-go",
-    "title": "YanchGo",
-    "description": "Angular CLI project with OpenAPI mock server and documentation generation workflow.",
-    "longDescription": "Angular 17 project with local dev server, OpenAPI mocker server (port 1234), and documentation generation via Compodoc.",
-    "technologies": [
-      "Angular",
-      "TypeScript",
-      "SCSS",
-      "OpenAPI Mocker",
-      "Compodoc"
+    "githubUrl": "https://github.com/Antonio-Tamburello/saas-forge-kit",
+    "demoUrl": "https://saas-forge-kit.vercel.app",
+    "screenshots": [
+      "/images/saas-forge-kit/saas-forge-kit-dashboard_dark.png",
+      "/images/saas-forge-kit/saas-forge-kit-dashboard_light.png",
+      "/images/saas-forge-kit/saas-forge-kit-login_dark.png",
+      "/images/saas-forge-kit/saas-forge-kit-price-payment_dark.png",
+      "/images/saas-forge-kit/saas-forge-kit-price-subscription_dark.png",
+      "/images/saas-forge-kit/saas-forge-kit-logged-billing_dark.png",
+      "/images/saas-forge-kit/saas-forge-kit-logged-dashboard_dark.png"
     ],
-    "githubUrl": "https://github.com/Antonio-Tamburello/yanch-go",
-    "status": "active",
+    "status": "archived",
     "isFeatured": false,
-    "category": "Frontend",
-    "tags": [
-      "Angular",
-      "Mocking",
-      "Documentation"
-    ]
+    "category": "Open Source",
+    "label": "Archived · Next.js"
   }
 ]
