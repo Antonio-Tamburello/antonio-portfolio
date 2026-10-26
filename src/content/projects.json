@@ -1,15 +1,43 @@
 [
   {
-    "id": "rag-forge",
-    "title": "rag-forge",
-    "description": "Measure and improve RAG on real documents.",
-    "longDescription": "Evaluation first, then the fixes that move the numbers. Open source soon.",
-    "technologies": ["RAG", "Evals", "Open source"],
+    "id": "billmeter",
+    "title": "BillMeter",
+    "description": "Extract data from Italian utility bills with any LLM, and measure it field by field.",
+    "longDescription": "A model-agnostic extractor for electricity and gas bills, built around an evaluation harness: every model and every prompt change is graded on the same documents, field by field, with dangerous errors (wrong or invented values) counted separately from visible ones. Runs locally with Ollama or with any hosted provider. Measured on a reproducible synthetic benchmark and on real bills that never left the machine.",
+    "image": "/images/billmeter/report-local.png",
+    "technologies": [
+      "Python",
+      "LLM evals",
+      "Structured output",
+      "Ollama",
+      "Anthropic API",
+      "pydantic",
+      "Typer",
+      "pytest",
+      "GitHub Actions"
+    ],
+    "githubUrl": "https://github.com/Antonio-Tamburello/billmeter",
+    "screenshots": [
+      "/images/billmeter/report-local.png",
+      "/images/billmeter/report-hosted-summary.png"
+    ],
+    "status": "active",
+    "isFeatured": true,
+    "category": "AI",
+    "label": "Open source · Python",
+    "tags": ["LLM", "Evals"]
+  },
+  {
+    "id": "vaglio",
+    "title": "Vaglio",
+    "description": "A RAG pipeline measured like BillMeter: retrieval, answers, and the judge itself.",
+    "longDescription": "Ask questions over your own documents and get answers with sources, then measure every part of it. Vaglio loads documents, finds the relevant passages with hybrid search and answers citing them, with any model, local or hosted. Every change (chunking, embeddings, model, prompt) is scored on a golden set of questions: did retrieval find the right passage, is the answer faithful to its sources, what does it cost. Open-ended answers need an LLM judge, so the judge is measured too, against my own ratings, before it is trusted. Command line first; open source when the first numbers are in.",
+    "technologies": ["Python", "RAG", "Hybrid search", "LLM evals", "LLM-as-judge", "Open source"],
     "githubUrl": null,
     "status": "wip",
     "isFeatured": true,
     "category": "AI",
-    "label": "Coming soon · open source"
+    "label": "In progress · open source"
   },
   {
     "id": "cenemancauno",

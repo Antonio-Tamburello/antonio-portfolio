@@ -7,7 +7,9 @@ import {
   SectionHeader,
   Tile,
 } from '@/components/site/bento';
+import { JsonLd } from '@/components/site/json-ld';
 import { ProjectTile } from '@/components/site/project-tile';
+import { site } from '@/config/site';
 import { getFeaturedProjects, getHomeTimeline, getProfile } from '@/content/load';
 import { FileText, ScanSearch, Sparkles, type LucideIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -22,8 +24,21 @@ export default async function HomePage() {
     getFeaturedProjects(),
   ]);
 
+  const person = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: profile.name,
+    url: site.url,
+    jobTitle: profile.title,
+    description: site.seo.description,
+    image: `${site.url}${profile.avatar}`,
+    sameAs: [profile.github, profile.linkedin].filter(Boolean),
+    knowsAbout: [...new Set([...site.seo.keywords.slice(0, 6), ...profile.stack])],
+  };
+
   return (
     <PageContainer className="flex flex-col">
+      <JsonLd data={person} />
       {/* Hero */}
       <section className="flex flex-wrap gap-3.5 pt-3">
         <div className="flex flex-[2_1_620px] flex-col justify-between gap-8 rounded-[28px] border border-border bg-card p-7 sm:p-12 lg:p-[60px]">

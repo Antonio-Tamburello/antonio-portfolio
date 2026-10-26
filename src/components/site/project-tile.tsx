@@ -1,9 +1,9 @@
 import type { Project } from '@/content/schemas';
-import { Eyebrow, Tile } from './bento';
+import { Eyebrow, Tile, TileCta } from './bento';
 
 /**
  * A project card. Work-in-progress projects get a dashed border;
- * every card links to its detail page.
+ * every card links to its detail page and says so with a "View project →" line.
  */
 export function ProjectTile({ project, className }: { project: Project; className?: string }) {
   const variant = project.status === 'wip' ? 'dashed' : 'default';
@@ -20,6 +20,7 @@ export function ProjectTile({ project, className }: { project: Project; classNam
       <span className="text-[15px] leading-relaxed text-muted-foreground">
         {project.description}
       </span>
+      <TileCta>View project</TileCta>
     </Tile>
   );
 }

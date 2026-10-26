@@ -16,13 +16,16 @@ export function ThemeToggle() {
     () => false,
   );
 
-  const isDark = resolvedTheme === 'dark';
+  // the server has no theme, so stay neutral until mounted or hydration mismatches
+  const isDark = mounted && resolvedTheme === 'dark';
 
   return (
     <button
       type="button"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+      aria-label={
+        mounted ? (isDark ? 'Switch to light theme' : 'Switch to dark theme') : 'Toggle theme'
+      }
       className="flex size-11 cursor-pointer items-center justify-center rounded-full bg-chip text-foreground transition-opacity hover:opacity-80"
     >
       {mounted ? (

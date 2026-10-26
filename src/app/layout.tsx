@@ -21,23 +21,37 @@ export const metadata: Metadata = {
   title: { default: site.seo.title, template: '%s — Antonio Tamburello' },
   description: site.seo.description,
   keywords: [...site.seo.keywords],
-  authors: [{ name: 'Antonio Tamburello' }],
+  authors: [{ name: 'Antonio Tamburello', url: site.url }],
+  creator: 'Antonio Tamburello',
+  // Every page sets its own canonical URL; this one is the home page's.
+  alternates: { canonical: '/' },
+  robots: { index: true, follow: true },
+  // Google Search Console ownership check (public by design: it ends up in the page HTML).
+  verification: { google: 'g2UN7ABa9rZQs4vs-Uxo4ogFq-8FUnByW2q2qzgTQi4' },
   openGraph: {
     title: site.seo.title,
     description: site.seo.description,
     type: 'website',
     locale: 'en_US',
     url: site.url,
+    siteName: 'Antonio Tamburello',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: site.seo.title,
+    description: site.seo.description,
   },
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const profile = await getProfile();
 
-  // The accent color comes from src/config/site.ts
+  // Accent colors come from src/config/site.ts; globals.css picks the light or dark pair.
   const brand = {
-    '--brand': site.theme.accent,
-    '--brand-foreground': site.theme.accentForeground,
+    '--brand-light': site.theme.light.accent,
+    '--brand-light-foreground': site.theme.light.accentForeground,
+    '--brand-dark': site.theme.dark.accent,
+    '--brand-dark-foreground': site.theme.dark.accentForeground,
   } as CSSProperties;
 
   return (

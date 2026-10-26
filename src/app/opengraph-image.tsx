@@ -39,8 +39,8 @@ export default async function OpengraphImage() {
             width: 64,
             height: 64,
             borderRadius: 18,
-            background: site.theme.accent,
-            color: site.theme.accentForeground,
+            background: site.theme.dark.accent,
+            color: site.theme.dark.accentForeground,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -82,8 +82,8 @@ export default async function OpengraphImage() {
           <span>{profile.tagline.before}</span>
           <span
             style={{
-              background: site.theme.accent,
-              color: site.theme.accentForeground,
+              background: site.theme.dark.accent,
+              color: site.theme.dark.accentForeground,
               padding: '0 12px',
               borderRadius: 10,
             }}

@@ -31,7 +31,10 @@ export function Tile({ variant = 'default', href, className, children }: TilePro
   const classes = cn(
     tileBase,
     tileVariants[variant],
-    href && 'transition-transform hover:-translate-y-0.5',
+    // Clickable tiles must look clickable: lift, stronger border and shadow on hover, and a
+    // visible outline for keyboard users. Tiles without href stay flat.
+    href &&
+      'group transition-[transform,border-color,box-shadow] hover:-translate-y-0.5 hover:shadow-lg hover:border-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
     className,
   );
   if (!href) return <div className={classes}>{children}</div>;
@@ -51,6 +54,23 @@ export function Tile({ variant = 'default', href, className, children }: TilePro
     <Link href={href} className={classes}>
       {children}
     </Link>
+  );
+}
+
+/**
+ * The "this card is a link" line at the bottom of a clickable Tile. The arrow moves on
+ * hover; on touch screens the text alone says the card can be opened.
+ */
+export function TileCta({ className, children }: { className?: string; children: ReactNode }) {
+  return (
+    <span
+      className={cn('mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium', className)}
+    >
+      {children}
+      <span aria-hidden className="transition-transform group-hover:translate-x-1">
+        →
+      </span>
+    </span>
   );
 }
 

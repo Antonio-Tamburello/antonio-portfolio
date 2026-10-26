@@ -1,18 +1,23 @@
 /**
  * Site configuration — the one place for look & feel and SEO.
  *
- * - Change `theme.accent` to recolor the whole site (buttons, highlights, badges).
+ * - Change `theme.light.accent` / `theme.dark.accent` to recolor the site in each theme
+ *   (buttons, highlights, badges, borders of clickable cards).
  * - Texts live in `src/content/*.json` (profile, experience, projects).
  * - Light/dark colors live in `src/app/globals.css` (section "Theme tokens").
  */
 export const site = {
   url: 'https://antonio-tamburello.vercel.app',
 
+  /**
+   * Accent color per theme. `accentForeground` is the text color on top of the accent:
+   * white on dark accents, near-black on light ones.
+   */
   theme: {
-    /** Accent color used across the site. Try '#7DD3FC' (sky) or '#FDBA74' (orange). */
-    accent: '#C6F24E',
-    /** Text color on top of the accent. Keep it dark for light accents. */
-    accentForeground: '#0B0B0D',
+    /** Light theme: electric blue, readable on the light background. */
+    light: { accent: '#2563EB', accentForeground: '#FFFFFF' },
+    /** Dark theme: lime. Also used by the link preview image, which is dark. */
+    dark: { accent: '#C6F24E', accentForeground: '#0B0B0D' },
   },
 
   seo: {

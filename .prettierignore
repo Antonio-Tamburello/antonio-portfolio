@@ -4,3 +4,7 @@ out
 dist
 pnpm-lock.yaml
 prisma/migrations
+
+# MDX tables are written as JSX with one cell per line: Prettier would wrap them,
+# and MDX turns wrapped cell text into <p> paragraphs.
+src/content/case-studies/billmeter.mdx

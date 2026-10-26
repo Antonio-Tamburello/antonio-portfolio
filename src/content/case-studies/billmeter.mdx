@@ -1,0 +1,187 @@
+---
+title: "BillMeter: measuring an LLM extractor, field by field"
+description: "Pulling data out of Italian utility bills with an LLM is the easy part. Knowing whether a change made it better or worse is the project."
+publishedAt: "2026-10-26"
+image: "/images/billmeter/report-local.png"
+tags: ["LLM", "Evals", "Structured output", "Python", "Ollama", "Anthropic API", "Open source"]
+featured: true
+readingTime: "6 min read"
+category: "Open Source"
+slug: "billmeter"
+projectUrl: "/projects/billmeter"
+githubUrl: "https://github.com/Antonio-Tamburello/billmeter"
+---
+
+## Context
+
+Give an LLM an electricity or gas bill and ask for the supply point code, the account holder, the
+tax code and the consumption: most of the time it gets them right. "Most of the time" is the
+problem. In a form that is filled in automatically, a **wrong** value is far worse than a
+**missing** one. An empty field gets noticed; a plausible wrong tax code gets signed.
+
+So I built **BillMeter**: a small, model-agnostic extractor for Italian utility bills, and, more
+importantly, the **evaluation harness** around it. Every model and every prompt change is graded on
+the same documents, field by field, with the dangerous errors counted separately from the visible
+ones.
+
+*BillMeter is an independent open-source project, written from scratch on my own time, on generated
+data and on bills from friends and relatives who agreed to it. It contains no code, prompt or data
+from any employer.*
+
+## What I built
+
+- **One extraction pipeline, any model.** `provider:model` on the command line: local models
+  through Ollama or LM Studio, hosted ones through Anthropic, OpenAI, Gemini, Mistral, OpenRouter or
+  any OpenAI-compatible server. Each adapter uses its provider's own structured-output feature; no
+  model is hard-coded.
+- **The model reads, code validates.** Italian number and date formats, supply point code patterns
+  and the tax-code check character are handled in code. A value that fails validation is dropped:
+  an empty field is better than a wrong one.
+- **Five outcomes per field:** `correct`, `correct_null`, `missing`, `wrong`, `hallucinated`.
+  `wrong` + `hallucinated` is the **dangerous rate**, reported on its own.
+- **Reproducible runs.** Every result stores the model, the prompt hash and the dataset hash;
+  `compare` shows per-field regressions and improvements; `report` writes a self-contained HTML
+  report.
+- **Two datasets.** A synthetic generator that rebuilds the same bills from the same seed, with the
+  traps real bills have; and a private set of real bills, labeled with a person in the loop and
+  never committed.
+
+## What measuring caught
+
+### 1. The naive prompt reads as well. It just can't keep quiet.
+
+`v1` is the prompt anyone writes first: the task and the output schema. `v2` adds the domain rules:
+Italian number formats, which figure on the page is which, and when to answer `null`. Same 30
+synthetic documents, same dataset hash; the prompt file is the only thing that changes.
+
+<div className="overflow-x-auto mb-8">
+  <table className="w-full text-left text-base border-collapse">
+    <thead>
+      <tr>
+        <th className="border-b border-border py-2 pr-4 font-semibold"></th>
+        <th className="border-b border-border py-2 pr-4 font-semibold">local v1</th>
+        <th className="border-b border-border py-2 pr-4 font-semibold">local v2</th>
+        <th className="border-b border-border py-2 pr-4 font-semibold">hosted v1</th>
+        <th className="border-b border-border py-2 pr-4 font-semibold">hosted v2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">Right where the bill <strong>has</strong> a value</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">99.2 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">99.7 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">97.7 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground"><strong>100 %</strong></td>
+      </tr>
+      <tr>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">Quiet where it has <strong>nothing</strong></td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">89.0 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground"><strong>99.4 %</strong></td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">94.8 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground"><strong>100 %</strong></td>
+      </tr>
+      <tr>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">Dangerous errors</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">3.5 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">0.2 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">1.6 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground"><strong>0 %</strong></td>
+      </tr>
+      <tr>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">Fully correct documents</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">43.3 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">93.3 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">86.7 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground"><strong>100 %</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+*Local: `ollama:qwen2.5vl:7b`. Hosted: `anthropic:claude-haiku-5-5`, every document run three times,
+with identical grades in all three. Zero regressions on either model. The hosted runs cost $0.16 in
+total.*
+
+On the fields where the bill has a value, the naive prompt is almost as good. Where the bill has
+**nothing**, the local model invents a value 17 times out of 155, against once with `v2`. A single
+average (96.1 % → 99.6 %) would have called that "3.5 points better" and moved on. Splitting the metric names the failure, and
+the fix is one rule: *null is a correct answer, not a failure.*
+
+### 2. The aggregate can lie about what went wrong
+
+The hosted model's whole failure list under `v1` was **one confusion**, repeated on every gas-only
+bill in every run: it read the billing period correctly and filed it under the gas period field.
+The aggregate reported 24 missing values and 24 invented ones. The stored raw values showed a single
+mislabelled field: a different diagnosis, and a different fix. A prompt is tuned against a model,
+not in the abstract.
+
+### 3. A benchmark you build yourself only contains the traps you thought of
+
+Same local model, same prompt, real documents instead of generated ones:
+
+<div className="overflow-x-auto mb-8">
+  <table className="w-full text-left text-base border-collapse">
+    <thead>
+      <tr>
+        <th className="border-b border-border py-2 pr-4 font-semibold"><code className="bg-muted px-2 py-1 rounded text-sm font-mono">ollama:qwen2.5vl:7b</code>, v2</th>
+        <th className="border-b border-border py-2 pr-4 font-semibold">Synthetic (30)</th>
+        <th className="border-b border-border py-2 pr-4 font-semibold">Real (8)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">Right where the bill has a value</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">99.7 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground"><strong>74.0 %</strong></td>
+      </tr>
+      <tr>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">Quiet where it has none</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">99.4 %</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">94.5 %</td>
+      </tr>
+      <tr>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">Dangerous errors</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground">1 in 510</td>
+        <td className="border-b border-border/50 py-2 pr-4 text-muted-foreground"><strong>19 in 128</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+The failure mode flips. On generated bills the model over-answers; on real ones it stays quiet and
+**misreads numbers**: some suppliers print consumption with several decimals, and an Italian decimal
+comma read as a thousands separator turns a figure like `1.234,567` into a number a thousand times
+too large. My generator never produced that layout, because it never occurred to me.
+
+## Decisions that mattered
+
+- **The schema says the shape, the prompt says the rules.** Field names and types live in code;
+  every instruction lives in a versioned prompt file. A JSON schema with helpful descriptions *is* a
+  prompt: put a rule there and both sides of an A/B test receive it. On `is_resident`, the rule
+  alone moved accuracy from 76.7 % to 100 %.
+- **No LLM judge here.** Every field has one verifiable answer, so deterministic graders are more
+  reliable, free and repeatable. A judge belongs where answers are open-ended, and even there it has
+  to be measured before it is trusted.
+- **Real bills never left my machine.** They were processed only with a local model, the repository
+  stores outcomes only, and the hosted model was measured on synthetic data. A sensitive expected
+  value, like a tax code, is stored as an HMAC, so the grader can check it without it ever being
+  written down.
+
+## Limits
+
+- **Eight real documents is a small set**, and the `v2` rules were written after looking at them:
+  treat those numbers as a development set, not a held-out test.
+- **The synthetic benchmark is saturated**: the hosted model scores 100 %, so it can no longer rank
+  prompts. Its job now is regression testing.
+- **Latency is not compared**: the local runs were on a laptop, sequential and throttled.
+
+## What's next
+
+- **Evals in CI**: a pull request that makes any field worse fails the build.
+- **Cost, measured**: prompt caching, batch requests, fewer pages per bill, and a cascade that calls
+  the hosted model only on the fields the local one is unsure about.
+- **More real bills**, split between a development set and a test set that is never used for tuning.
+
+---
+
+*Repo:* https://github.com/Antonio-Tamburello/billmeter

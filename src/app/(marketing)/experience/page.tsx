@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: 'Experience',
   description:
     'Seven years building products: from frontend lead to Technical BA & QA Lead bringing AI into production.',
+  alternates: { canonical: '/experience' },
 };
 
 export default async function ExperiencePage() {

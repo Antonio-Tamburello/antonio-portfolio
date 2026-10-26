@@ -19,9 +19,9 @@
   --border: #deded9;
   --glass: rgb(255 255 255 / 0.88);
 
-  /* Accent: overridden at runtime from site.ts (see layout.tsx) */
-  --brand: #c6f24e;
-  --brand-foreground: #0b0b0d;
+  /* Accent (light theme): the values come from site.ts at runtime (see layout.tsx) */
+  --brand: var(--brand-light, #2563eb);
+  --brand-foreground: var(--brand-light-foreground, #ffffff);
 
   /* shadcn/ui tokens, derived from the ones above */
   --popover: var(--card);
@@ -74,6 +74,10 @@
 
 .dark {
   color-scheme: dark;
+
+  /* Accent (dark theme): the values come from site.ts at runtime (see layout.tsx) */
+  --brand: var(--brand-dark, #c6f24e);
+  --brand-foreground: var(--brand-dark-foreground, #0b0b0d);
 
   /* ---------- Theme tokens (dark) ---------- */
   --background: #09090b;

@@ -1,4 +1,4 @@
-import { ChipList, Eyebrow, PageContainer, Tile } from '@/components/site/bento';
+import { ChipList, Eyebrow, PageContainer, Tile, TileCta } from '@/components/site/bento';
 import { PageIntro } from '@/components/site/page-intro';
 import { ProjectTile } from '@/components/site/project-tile';
 import { getProfile, getProjects } from '@/content/load';
@@ -8,6 +8,7 @@ import Image from 'next/image';
 export const metadata: Metadata = {
   title: 'Projects',
   description: 'Open source, side products and experiments by Antonio Tamburello.',
+  alternates: { canonical: '/projects' },
 };
 
 export default async function ProjectsPage() {
@@ -44,6 +45,7 @@ export default async function ProjectsPage() {
               <span className="max-w-[560px] text-[17px] leading-relaxed opacity-75">
                 {spotlight.description} {spotlight.longDescription}
               </span>
+              <TileCta>View project</TileCta>
             </span>
             <ChipList
               items={spotlight.technologies}
@@ -76,6 +78,7 @@ export default async function ProjectsPage() {
                 {project.description}
               </span>
               <ChipList items={project.technologies.slice(0, 3)} className="mt-1" />
+              <TileCta>View project</TileCta>
             </span>
           </Tile>
         ))}
